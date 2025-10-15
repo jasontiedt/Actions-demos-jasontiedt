@@ -1,5 +1,5 @@
 name: GitHub Actions Demo
-run-name: Deploy to ${{ inputs.deploy_target }} by @${{ github.actor }}
+
 on:
   push:
     branches: [ main ]
@@ -19,6 +19,12 @@ jobs:
   Build:
     runs-on: Ubuntu-latest
     steps:
+    
+      - name: Parameters
+        env:
+          PARAMETERS: "${{ tojson(inputs) }}"
+        run: echo See env for the parameters
+        
       - run: |
           echo "🎉 The job was triggered by event: ${{ github.event_name }}"
           echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ."
