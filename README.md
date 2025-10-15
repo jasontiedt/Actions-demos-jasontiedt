@@ -1,5 +1,5 @@
 # GitHub Actions Fundamentals
-Trainer: @jasontiedt
+Trainer: @jasontiedt2
 Repo for the `GitHub Actions Fundamentals` training.
 
 ## 👉 Objectives
