@@ -25,7 +25,7 @@ permissions:
 jobs:
   super-lint:
     name: Super Linter
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       # Checkout the repository code
