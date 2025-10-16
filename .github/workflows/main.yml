@@ -8,6 +8,8 @@ on:
   pull_request:
     branches:
       - main
+      - master
+      - develop
     # Optional: Run on specific file changes
     # paths:
     #   - '**.js'
@@ -48,43 +50,15 @@ jobs:
           # Only lint files that have changed in the PR
           VALIDATE_ALL_CODEBASE: false
           
-          # Linter configurations
-          VALIDATE_JSCPD: false              # Disable copy-paste detection (can be noisy)
-          VALIDATE_KUBERNETES_KUBECONFORM: false  # Disable if you don't use Kubernetes
-          
-          # Language-specific linters (set to true/false as needed)
-          VALIDATE_JAVASCRIPT_ES: true
-          VALIDATE_TYPESCRIPT_ES: true
-          VALIDATE_PYTHON_PYLINT: true
-          VALIDATE_PYTHON_FLAKE8: true
-          VALIDATE_PYTHON_BLACK: true
-          VALIDATE_YAML: true
-          VALIDATE_JSON: true
-          VALIDATE_XML: true
-          VALIDATE_MARKDOWN: true
-          VALIDATE_DOCKERFILE_HADOLINT: true
-          VALIDATE_BASH: true
-          VALIDATE_SHELL_SHFMT: true
-          VALIDATE_HTML: true
-          VALIDATE_CSS: true
-          VALIDATE_SQL: true
-          
-          # .NET specific linters
-          VALIDATE_CSHARP: true
-          
-          # Java specific linters
-          VALIDATE_JAVA: true
-          
-          # Infrastructure as Code
-          VALIDATE_TERRAFORM_TFLINT: true
-          VALIDATE_ANSIBLE: true
-          
-          # Configuration files
-          VALIDATE_GITHUB_ACTIONS: true
-          
-          # Disable problematic linters (uncomment if needed)
-          # VALIDATE_NATURAL_LANGUAGE: false
-          # VALIDATE_CHECKOV: false
+          # Disable specific linters that can be problematic or noisy
+          # All other linters will run by default
+          VALIDATE_JSCPD: false                    # Disable copy-paste detection (can be noisy)
+          VALIDATE_KUBERNETES_KUBECONFORM: false   # Disable if you don't use Kubernetes
+          VALIDATE_NATURAL_LANGUAGE: false        # Disable natural language linting (can be noisy)
+          VALIDATE_CHECKOV: false                  # Disable Checkov (can be resource intensive)
+          VALIDATE_GITLEAKS: false                 # Disable GitLeaks (may cause issues in some repos)
+          VALIDATE_TEKTON: false                   # Disable if you don't use Tekton
+          VALIDATE_ARM: false                      # Disable if you don't use Azure ARM templates
           
           # Optional: Suppress specific linters for certain paths
           # FILTER_REGEX_EXCLUDE: '.*/(node_modules|\.git)/.*'
