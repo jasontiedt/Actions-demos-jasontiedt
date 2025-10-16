@@ -4,17 +4,8 @@ Repo for the `GitHub Actions Fundamentals` training.
 
 ## 👉 Objectives Demo
 
-- Understand the __basic components__ and vocabulary of GitHub Actions
-- Understand the __YAML__ syntax (scalar types, quotes, literal blocks, maps, and sequences)
-- Understand the __workflow syntax__ and how to write workflows using intellisence
-- Understand events that can __trigger__ workflows
-- Learn the __context and expression syntax__ as well as workflow commands
-- Know the different types of __actions__ and how to create/publish them
-- Understand the different hosting options for __runners__
-- Use __Secrets__ and __Environments__ for staged deployments
-- Workflow templates and __reusable workflows__
 
-## Getting ready
+###### Getting ready
 
 Please follow [these instructions](GettingReady.md) and make sure you have set up everything correctly following the [prerequisites](#-prerequisites).
 
@@ -38,10 +29,10 @@ Please follow [these instructions](GettingReady.md) and make sure you have set u
 - [ ] Typescript and composite actions
 - [ ] Sharing and releasing actions
 - [ ] Using the GitHub API and Octokit
-- [ ] Job descriptions
+ [ ] Job descriptions
 
-### Day 2
-- [ ] Introduction
+## Day 2
+- [  Introduction
 - [ ] Actions for CI/CD
 - [ ] Permissions for GitHub Token
 - [ ] Environments and Secrets
