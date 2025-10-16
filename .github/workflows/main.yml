@@ -36,7 +36,8 @@ jobs:
         with:
           # Full git history is needed to get list of changed files
           fetch-depth: 0
-
+          ref: jst-lint-demo
+          
       # Run Super Linter
       - name: Run Super Linter
         uses: super-linter/super-linter@v5.7.2
