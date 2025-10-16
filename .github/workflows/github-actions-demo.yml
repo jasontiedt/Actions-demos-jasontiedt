@@ -17,7 +17,7 @@ on:
 
 jobs:
   Build:
-    runs-on: Ubuntu-latest
+    runs-on: self-hosted
     steps:
     
       - name: Parameters
@@ -34,7 +34,7 @@ jobs:
           echo "The repository ${{ github.repository }} contains the following files:"
           tree
   Test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: github.event_name == 'workflow_dispatch' 
     needs: Build
     environment: Test
@@ -42,7 +42,7 @@ jobs:
       - run: echo "🧪 Testing..."
 
   Load-Test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: github.event_name == 'workflow_dispatch' 
     needs: Build
     environment: Load-Test
@@ -52,7 +52,7 @@ jobs:
              sleep 15
 
   Production:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment: 
       name: Production
       url: https://writeabout.net
