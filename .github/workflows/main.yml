@@ -1,0 +1,96 @@
+# GitHub Super Linter Workflow
+# This workflow will run the Super Linter on pull requests to ensure code quality
+
+name: Super Linter
+
+# Run this workflow on pull request events
+on:
+  pull_request:
+    branches:
+      - main
+    # Optional: Run on specific file changes
+    # paths:
+    #   - '**.js'
+    #   - '**.ts'
+    #   - '**.py'
+    #   - '**.yml'
+    #   - '**.yaml'
+
+# Set permissions for the workflow
+permissions:
+  contents: read
+  statuses: write
+  pull-requests: write
+
+jobs:
+  super-lint:
+    name: Super Linter
+    runs-on: self-hosted
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # Full git history is needed to get list of changed files
+          fetch-depth: 0
+
+      # Run Super Linter
+      - name: Run Super Linter
+        uses: super-linter/super-linter@v5.7.2
+        env:
+          # Set the default branch for comparison
+          DEFAULT_BRANCH: main
+          
+          # GitHub token for API access
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+          # Only lint files that have changed in the PR
+          VALIDATE_ALL_CODEBASE: false
+          
+          # Linter configurations
+          VALIDATE_JSCPD: false              # Disable copy-paste detection (can be noisy)
+          VALIDATE_KUBERNETES_KUBECONFORM: false  # Disable if you don't use Kubernetes
+          
+          # Language-specific linters (set to true/false as needed)
+          VALIDATE_JAVASCRIPT_ES: true
+          VALIDATE_TYPESCRIPT_ES: true
+          VALIDATE_PYTHON_PYLINT: true
+          VALIDATE_PYTHON_FLAKE8: true
+          VALIDATE_PYTHON_BLACK: true
+          VALIDATE_YAML: true
+          VALIDATE_JSON: true
+          VALIDATE_XML: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_DOCKERFILE_HADOLINT: true
+          VALIDATE_BASH: true
+          VALIDATE_SHELL_SHFMT: true
+          VALIDATE_HTML: true
+          VALIDATE_CSS: true
+          VALIDATE_SQL: true
+          
+          # .NET specific linters
+          VALIDATE_CSHARP: true
+          
+          # Java specific linters
+          VALIDATE_JAVA: true
+          
+          # Infrastructure as Code
+          VALIDATE_TERRAFORM_TFLINT: true
+          VALIDATE_ANSIBLE: true
+          
+          # Configuration files
+          VALIDATE_GITHUB_ACTIONS: true
+          
+          # Disable problematic linters (uncomment if needed)
+          # VALIDATE_NATURAL_LANGUAGE: false
+          # VALIDATE_CHECKOV: false
+          
+          # Optional: Suppress specific linters for certain paths
+          # FILTER_REGEX_EXCLUDE: '.*/(node_modules|\.git)/.*'
+          
+          # Optional: Set log level (ERROR, WARN, INFO, DEBUG)
+          LOG_LEVEL: INFO
+          
+          # Optional: Create annotations on PR
+          CREATE_LOG_FILE: true
