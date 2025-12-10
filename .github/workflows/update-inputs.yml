@@ -1,0 +1,52 @@
+name: Update SharePoint Workflow Inputs
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to update (default: main)"
+        required: false
+        default: main
+
+jobs:
+  update-sharepoint-inputs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          fetch-depth: 0
+
+      - name: Install dependencies (yq, jq, gh)
+        run: |
+          sudo apt update && sudo apt install -y yq jq
+
+      - name: Fetch recent GitHub usernames
+        id: fetch_users
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          USERS=$(gh api -X GET repos/${{ github.repository }}/collaborators | jq -r '.[].login' | head -n 5)
+          USERS_YAML=$(printf -- "- %s\n" $USERS)
+          echo "$USERS_YAML" > users.yaml
+
+      - name: Update sharepoint-update.yml with dynamic user options
+        run: |
+          # Convert YAML array to quoted, comma-separated list for yq assignment
+          OPTIONS=$(cat users.yaml | sed 's/- /"/g' | sed 's/$/"/' | tr '\n' ',' | sed 's/,$//')
+          yq -y ".on.workflow_dispatch.inputs.release_tag.options = [${OPTIONS}]" .github/workflows/sharepoint-update.yml > tmp.yml
+          mv tmp.yml .github/workflows/sharepoint-update.yml
+          rm users.yaml
+
+      - name: Commit and push updated workflow
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_PAT_USERNAME: ${{ secrets.GH_PAT_USERNAME }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/workflows/sharepoint-update.yml
+          git commit -m "chore: update release_tag options with recent users" || echo "No changes to commit"
+          git push https://${GH_PAT_USERNAME}:${GH_PAT}@github.com/${{ github.repository }} HEAD:${{ github.event.inputs.branch }}
