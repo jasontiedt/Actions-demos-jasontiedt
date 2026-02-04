@@ -1,3 +1,4 @@
 .DS_Store
 Connection-Strings.config
 .vs/*
+.github/*
