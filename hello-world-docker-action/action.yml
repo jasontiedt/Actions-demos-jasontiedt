@@ -3,8 +3,8 @@ description: 'Say hello to a user or the world.'
 inputs: 
   who-to-greet:
     description: 'Who to greet'
-    required: true
-    default: 'world'
+    required: false
+    default: 'Jason'
 outputs:
   time: 
     description: 'The time we said hello.'
