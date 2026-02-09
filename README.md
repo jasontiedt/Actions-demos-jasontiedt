@@ -1,6 +1,10 @@
 # GitHub Actions Fundamentals OMAGI Demo
 Trainer: @jasontiedt
+<<<<<<< Updated upstream
 Repo for the `GitHub Actions Fundamentals` demo.
+=======
+Repo for the `GitHub Actions Fundamentals` Demo.
+>>>>>>> Stashed changes
 
 ## 👉 Objectives Demo Again Again
 

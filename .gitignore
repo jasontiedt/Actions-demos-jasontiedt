@@ -1,4 +1,8 @@
 .DS_Store
 Connection-Strings.config
 .vs/*
+<<<<<<< Updated upstream
 .github
+=======
+.github/*
+>>>>>>> Stashed changes
