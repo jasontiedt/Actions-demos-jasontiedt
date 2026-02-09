@@ -1,6 +1,6 @@
 # GitHub Actions Fundamentals OMAGI Demo
 Trainer: @jasontiedt
-Repo for the `GitHub Actions Fundamentals` training..
+Repo for the `GitHub Actions Fundamentals` workshop.
 
 ## 👉 Objectives Demo Again Again
 
